@@ -39,10 +39,14 @@ namespace Keepr.Services
             return _repo.Create(newKeep);
         }
 
-        internal Keep Edit(Keep keepToUpdate, int id) //Edit
+        internal Keep Edit(Keep keepToUpdate, string userId) //Edit
         {
-            Keep foundKeep = GetById(id);
-            return foundKeep;
+            Keep foundKeep = GetById(keepToUpdate.Id);
+            if(foundKeep.UserId == userId && _repo.Edit(keepToUpdate, userId))
+            {
+                return keepToUpdate;
+            }
+            throw new Exception("You cannot edit this keep");
         }
 
         internal string Delete(int id, string userId) //Delete

@@ -43,6 +43,25 @@ namespace Keepr.Repositories
             return newKeep;
         }
 
+        internal bool Edit(Keep keepToUpdate, string userId)
+        {
+            keepToUpdate.UserId = userId;
+            string sql = @"
+            UPDATE keeps
+            SET
+                name = @Name,
+                description = @Description,
+                img = @Img,
+                isPrivate = @IsPrivate,
+                keeps = @Keeps,
+                views = @Views,
+                shares = @Shares
+            WHERE id = @Id
+            AND userId = @UserId";
+            int affectedRows = _db.Execute(sql, keepToUpdate);
+            return affectedRows == 1;
+        }
+
         internal bool Delete(int id, string userId)
         {
             string sql = "DELETE FROM keeps WHERE id = @id AND userId = @userId LIMIT 1";
