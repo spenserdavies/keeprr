@@ -32,6 +32,14 @@ export default new Vuex.Store({
     async addKeep({commit, dispatch}, newKeep){
       let res = await api.post("keeps", newKeep);
       dispatch("getAllKeeps");
+    },
+    async deleteKeep({commit, dispatch}, keepToDelete){
+      try{
+      let res = await api.delete("keeps/" + keepToDelete.id, keepToDelete);
+      dispatch("getAllKeeps");
+      }catch(err){
+        console.error(err);
+      }
     }
   }
 });
