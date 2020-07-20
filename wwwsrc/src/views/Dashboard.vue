@@ -60,8 +60,11 @@
         </div>      
       </div>
       <div class="row">
-        <div class="col-5 mx-auto ">
-          <button class="btn btn-primary ml-0 my-2" @click="keepForm = !keepForm ; vaultForm = false">New</button>
+        <div class="col-5 mx-auto d-flex justify-content-around">
+          <button class="btn btn-primary my-2" @click="keepForm = !keepForm ; vaultForm = false">New</button>
+          <router-link :to="{ name: 'keeps' }">
+            <button class="btn btn-success mx-auto my-2" >View All</button>
+          </router-link>
           <button v-if="viewKeeps == false" class="btn btn-success float-right m-2" @click="viewKeeps = true">Show</button>
           <button v-if="viewKeeps == true" class="btn btn-secondary text-primary float-right m-2" @click="viewKeeps = false">Hide</button>
         </div>
@@ -111,7 +114,7 @@ export default {
       newVault: {},
       keepForm: false,
       vaultForm: false,
-      viewKeeps: false,
+      viewKeeps: true,
       viewVaults: false,
     };
   },
@@ -124,7 +127,7 @@ export default {
       return this.$store.state.publicKeeps;
     },
     myKeeps(){
-      return this.$store.state.publicKeeps.filter(keep => keep.userId == this.$auth.user.sub);
+      return this.$store.state.publicKeeps.filter(keep => keep.userId == this.$auth.user.sub).splice(0,4);
     },
     vaults(){
       return this.$store.state.vaults;

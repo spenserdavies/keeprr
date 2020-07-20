@@ -26,7 +26,10 @@ export default {
     methods: {
         deleteKeep(){
             console.log(this.keep);
-            this.$store.dispatch("deleteKeep", this.keep)
+            let r = confirm("Delete This Keep? \nIt Cannot Be Undone")
+            if(r == true){
+                this.$store.dispatch("deleteKeep", this.keep)
+            }
         }
     },
     computed: {
