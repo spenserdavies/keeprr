@@ -53,7 +53,7 @@ namespace Keepr.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize] //TODO maybe just move the auth tag to the top level?
         public ActionResult<Vault> Post([FromBody] Vault newVault)
         {
             try

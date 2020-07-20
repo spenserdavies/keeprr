@@ -11,10 +11,13 @@ namespace Keepr.Models
 
         public int Id { get; set; }
 
+        
         public string UserId { get; set; }
-        [Required]
+        
+        [Required] //Also required on form
         public string Name { get; set; }
-        [Required]
+        
+        [Required] //Also required on form
         public string Description { get; set; }
 
     }

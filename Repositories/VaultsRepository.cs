@@ -25,14 +25,14 @@ namespace Keepr.Repositories
             return _db.QueryFirstOrDefault<Vault>(sql, new { id });
         }
 
-        internal Vault Create(Vault newVault)
+        internal Vault Create(Vault newVault) //NOTE this still doesnt work? should be same as keep..
         {
             string sql = @"
             INSERT INTO vaults
             (name, description, userId)
             VALUES
             (@Name, @Description, @UserId);
-            SELECT LAST_INSERT_ID()";
+            SELECT LAST_INSERT_ID();"; //semicolon in the sql maybe?
             newVault.Id = _db.ExecuteScalar<int>(sql, newVault);
             return newVault;
         }
