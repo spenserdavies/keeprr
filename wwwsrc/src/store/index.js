@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     publicKeeps: [],
     vaults: [],
+    activeVault: {},
   },
   mutations: {
     setKeeps(state, keeps){
@@ -17,6 +18,10 @@ export default new Vuex.Store({
     setVaults(state, vaults){
       state.vaults = vaults
     },
+    setActiveVault(state, vaultId){
+      state.activeVault = state.vaults.filter(vault => vault.id == vaultId).pop();
+      console.log(state.activeVault);
+    }
   },
   actions: {
     setBearer({}, bearer) {
@@ -56,6 +61,7 @@ export default new Vuex.Store({
     async addVault({dispatch}, newVault){
       let res = await api.post("vaults", newVault);
       dispatch("getVaults");
+      console.log(res)
     },
     async deleteVault({dispatch}, vaultToDelete){
       try{
@@ -64,6 +70,9 @@ export default new Vuex.Store({
       }catch(err){
         console.error(err);
       }
+    },
+    getActiveVault({commit}, vaultId){
+      commit("setActiveVault", vaultId);
     }
   }
 });

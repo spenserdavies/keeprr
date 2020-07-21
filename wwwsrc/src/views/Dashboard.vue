@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard text-success">
+  <div class="dashboard text-success" id="top">
     <div class="container">
       <div class="row mt-4">
         <div class="col-6 mx-auto pb-3 border-bottom border-primary text-center">
@@ -27,40 +27,29 @@
               placeholder="Description"
               v-model="newKeep.Description"
             />
-            <label for="check">Set As Private?</label>
-            <input type="checkbox" class="p-2 m-2" id="check" v-model="newKeep.IsPrivate" />
+            <label for="check" class="ml-0">Set As Private?</label>
+            <input type="checkbox" class="p-2 m-2 ml-0" id="check" v-model="newKeep.IsPrivate" />
 
             <button type="submit" class="btn btn-primary float-right m-2 text-secondary border-secondary">Submit</button>
             <button class="btn btn-secondary float-right m-2 text-primary border-secondary" @click="clearKeepForm">Cancel</button>
              
           </form>
-          <form v-if="vaultForm" @submit.prevent="addVault">
-          <h3>New Vault</h3>
-            <input required class="form-control my-2" type="text" placeholder="Name" v-model="newVault.Name" />
-            <input
-            required
-              class="form-control my-2"
-              type="text"
-              placeholder="Description"
-              v-model="newVault.Description"
-            />
-            <button type="submit" class="btn btn-primary float-right m-2 text-secondary border-secondary">Submit</button>
-            <button class="btn btn-secondary float-right m-2 text-primary border-secondary" @click="clearVaultForm">Cancel</button>
-             
-          </form>
+          
+          
 
         </div>
       </div>
     </div>
     
     <div class="container-fluid mb-5">
+      
       <div class="row">
         <div class="col-5 mx-auto border p-3 bg-danger border-primary text-center">
           <h3>My Keeps</h3>
         </div>      
       </div>
       <div class="row">
-        <div class="col-5 mx-auto d-flex justify-content-around">
+        <div class="col-5 mx-auto d-flex justify-content-between">
           <button class="btn btn-primary my-2" @click="keepForm = !keepForm ; vaultForm = false">New</button>
           <router-link :to="{ name: 'keeps' }">
             <button class="btn btn-success mx-auto my-2" >View All</button>
@@ -76,16 +65,35 @@
       </div>
     </div>
 
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
+      <div class="row">
+        <div class="col-5 mx-auto">
+          <div>
+            <form @submit.prevent="addVault" v-if="vaultForm">
+          <h3>New Vault</h3>
+            <input required class="form-control my-2" type="text" placeholder="Name" v-model="newVault.Name" />
+            <input
+            required
+              class="form-control my-2"
+              type="text"
+              placeholder="Description"
+              v-model="newVault.Description"
+            />
+            <button type="submit" class="btn btn-primary float-right m-2 text-secondary border-secondary">Submit</button>
+            <button class="btn btn-secondary float-right m-2 text-primary border-secondary" @click="clearVaultForm">Cancel</button>
+             
+          </form>
+          </div>
+        </div>
+      </div>
       <div class="row mt-5">
-        <div class="col-6 mx-auto border p-3 bg-danger border-primary text-center">
+        <div class="col-5 mx-auto border p-3 bg-danger border-primary text-center">
           <h3>My Vaults</h3>
         </div>
       </div>
       <div class="row">
-        <div class="col-6 mx-auto">
-
-          <button class="btn btn-primary ml-0 my-2" @click="vaultForm = !vaultForm ; keepForm = false">New</button>
+        <div class="col-5 mx-auto  d-flex justify-content-between">
+            <button class="btn btn-primary ml-0 my-2" @click="vaultForm = true ; keepForm = false ; viewKeeps = false" >New</button>
           <button v-if="viewVaults == false" class="btn btn-success float-right m-2" @click="viewVaults = true">Show</button>
           <button v-if="viewVaults == true" class="btn btn-secondary text-primary float-right m-2" @click="viewVaults = false">Hide</button>
         </div>
@@ -102,10 +110,13 @@
 <script>
 import KeepComponent from "@/components/KeepComponent.vue"
 import VaultComponent from "@/components/VaultComponent.vue"
+import VaultForm from "@/components/VaultForm.vue"
 export default {
   components: {
     KeepComponent,
     VaultComponent,
+    VaultForm,
+
   },
   name: "dashboard",
   data() {
@@ -115,7 +126,7 @@ export default {
       keepForm: false,
       vaultForm: false,
       viewKeeps: true,
-      viewVaults: false,
+      viewVaults: true,
     };
   },
   mounted() {
@@ -158,14 +169,16 @@ export default {
       this.$store.dispatch("addVault", this.newVault)
       this.clearVaultForm();
       this.viewVaults = true;
-    }
+    },
+    
   }
-};
+}
 </script>
 
 <style>
 .card-columns.vault-cards{
-  column-count: 2;
+  column-count: 3;
 }
+
 
 </style>

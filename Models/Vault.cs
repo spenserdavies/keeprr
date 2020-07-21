@@ -11,7 +11,6 @@ namespace Keepr.Models
 
         public int Id { get; set; }
 
-        
         public string UserId { get; set; }
         
         [Required] //Also required on form

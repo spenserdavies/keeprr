@@ -59,8 +59,11 @@ namespace Keepr.Controllers
             try
             {
                 string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                if(userId != null){
                 newVault.UserId = userId;
                 return Ok(_vs.Create(newVault));
+                }
+                return BadRequest("nah bro");
             }
             catch (Exception e)
             {

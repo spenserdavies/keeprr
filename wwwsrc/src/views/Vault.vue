@@ -1,0 +1,34 @@
+<template>
+  <div class="container-fluid text-success">
+      <div class="row  py-3 border-bottom border-primary bg-danger">
+          <div class="col-5 my-auto">
+              <h2 class="ml-3">{{vault.name}}</h2>
+          </div>
+          <div class="col-2 d-flex justify-content-end my-auto py-3">
+              <h3><u>Description:</u></h3>
+          </div>
+          <div class="col-5 ml-0 my-auto pt-2 vault-desc">
+            <h5>{{vault.description}}</h5>
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+    
+    name: "vault",
+    mounted() {
+        this.$store.dispatch("getActiveVault", this.$route.params.vaultId);
+    },
+    computed: {
+        vault(){
+            return this.$store.state.activeVault;
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>
