@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-primary shadow rounded-bottom">
     <router-link class="navbar-brand ml-3 mr-5" :to="{ name: 'home' }">
       <div class="row my-0 py-0 ">
         <div class="col-12 text-center py-0 my-0">
@@ -56,6 +56,7 @@ export default {
       this.$store.dispatch("setBearer", this.$auth.bearer);
       console.log("this.$auth.user: ");
       console.log(this.$auth.user);
+      this.$store.dispatch("getAllKeeps");
     },
     async logout() {
       this.$store.dispatch("resetBearer");

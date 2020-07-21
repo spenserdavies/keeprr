@@ -44,7 +44,7 @@
     <div class="container-fluid mb-5">
       
       <div class="row">
-        <div class="col-5 mx-auto border p-3 bg-danger border-primary text-center">
+        <div class="col-5 mx-auto border p-3 bg-danger border-primary text-center shadow title-shadow">
           <h3>My Keeps</h3>
         </div>      
       </div>
@@ -179,6 +179,7 @@ export default {
 .card-columns.vault-cards{
   column-count: 3;
 }
+
 
 
 </style>
