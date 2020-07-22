@@ -21,7 +21,7 @@ namespace Keepr.Controllers
             _ks = ks;
         }
         [HttpGet] //Get All api/keeps
-        public ActionResult<IEnumerable<Keep>> Get()
+        public ActionResult<IEnumerable<Keep>> Get() //TODO somehow gotta make this also get private ones if youre the poster
         {
             try
             {
@@ -32,6 +32,7 @@ namespace Keepr.Controllers
                 return BadRequest(e.Message);
             };
         }
+
         [HttpGet("user")] // Get By User api/user
         [Authorize]
         public ActionResult<IEnumerable<Keep>> GetKeepsByUser()

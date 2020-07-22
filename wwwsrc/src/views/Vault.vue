@@ -1,6 +1,8 @@
 <template>
   <div class="container-fluid text-success">
-      <div class="row  py-3 border-bottom border-primary bg-danger">
+          <div class="row mt-5"></div>
+    <div class="row mt-5 py-1"></div>
+      <div class="row mt-0  py-3 border-bottom border-primary bg-danger">
           <div class="col-5 my-auto">
               <h2 class="ml-3">{{vault.name}}</h2>
           </div>

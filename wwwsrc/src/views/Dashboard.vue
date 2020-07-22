@@ -1,6 +1,8 @@
 <template>
   <div class="dashboard text-success" id="top">
     <div class="container">
+          <div class="row mt-5"></div>
+    <div class="row mt-5 py-1"></div>
       <div class="row mt-4">
         <div class="col-6 mx-auto pb-3 border-bottom border-primary text-center">
           <h1>DASHBOARD</h1>
