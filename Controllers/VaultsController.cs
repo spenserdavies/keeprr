@@ -21,6 +21,20 @@ namespace Keepr.Controllers
             _vs = vs;
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult<IEnumerable<Vault>> Get()
+        {
+            try
+            {
+                string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                return Ok(_vs.Get(userId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
 
         [HttpGet("user")]

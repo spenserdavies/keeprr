@@ -32,6 +32,11 @@ namespace Keepr.Services
             return _repo.Create(newVault);
         }
 
+        internal object Get(string userId)
+        {
+            return _repo.Get(userId);
+        }
+
         internal object Delete(int id, string userId)
         {
             Vault foundVault = GetById(id);
