@@ -39,16 +39,23 @@ export default {
                 vaultId,
                 keepId
             }
+            this.keep.keeps += 1;
+            console.log(this.keep.keeps)
+            let editedKeep = this.keep
+            console.log(editedKeep)
             console.log("keepId: " + keepId);
             console.log("vaultId: "+ vaultId)
             this.$store.dispatch("addKeepToVault", newVaultKeep)
+            this.$store.dispatch("increaseKeepCount", editedKeep);
         },
         removeVaultKeep(){
+            // debugger;
             let vaultId = this.$route.params.vaultId;
             console.log(this.keep)
             let r = confirm("Remove From This Vault?")
+            let delObj = { keep: this.keep , vaultId: vaultId }
             if(r == true){
-                this.$store.dispatch("deleteVaultKeep", this.keep, vaultId)
+                this.$store.dispatch("deleteVaultKeep", delObj)
             // this.$store.dispatch("getKeepsByVaultId", vaultId)
             }
         }

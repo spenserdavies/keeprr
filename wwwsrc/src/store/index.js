@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     publicKeeps: [],
+    myKeeps: [],
     vaults: [],
     activeVault: {},
     activeVaultKeeps: [],
@@ -15,6 +16,9 @@ export default new Vuex.Store({
   mutations: {
     setKeeps(state, keeps){
       state.publicKeeps = keeps;
+    },
+    setMyKeeps(state, keeps){
+      state.myKeeps = keeps;
     },
     setVaults(state, vaults){
       state.vaults = vaults
@@ -42,14 +46,22 @@ export default new Vuex.Store({
         console.error(err);
       }
     },
+    async getMyKeeps({commit}){
+      try {
+        let res = await api.get("keeps/user");
+        commit("setMyKeeps", res.data);
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async addKeep({commit, dispatch}, newKeep){
       let res = await api.post("keeps", newKeep);
-      dispatch("getAllKeeps");
+      dispatch("getMyKeeps");
     },
     async deleteKeep({commit, dispatch}, keepToDelete){
       try{
       let res = await api.delete("keeps/" + keepToDelete.id, keepToDelete);
-      dispatch("getAllKeeps");
+      dispatch("getMyKeeps");
       }catch(err){
         console.error(err);
       }
@@ -62,10 +74,19 @@ export default new Vuex.Store({
         console.error(err)
       }
     },
-    async deleteVaultKeep({commit,dispatch}, keep, vaultId){
+    async increaseKeepCount({commit, dispatch}, editedKeep){
       try {
-        let res = await api.delete("vaultkeeps/" + keep.vaultKeepId)
-        dispatch("getKeepsByVaultId", vaultId);
+        let res = await api.put("keeps/" + editedKeep.id);
+        dispatch("getAllKeeps");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteVaultKeep({commit,dispatch}, keepObj){
+      try {
+        // debugger;
+        let res = await api.delete("vaultkeeps/" + keepObj.keep.vaultKeepId)
+        dispatch("getKeepsByVaultId", keepObj.vaultId);
       } catch (error) {
         console.error(error)
       }

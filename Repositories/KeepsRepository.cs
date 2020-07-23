@@ -27,7 +27,7 @@ namespace Keepr.Repositories
         // }            ////////////////SAME AS SERVICE, MIGHT NOT NEED IT.  GOTTA FIND ANOTHER WAY TO GET PRIVATES
         internal IEnumerable<Keep> GetByUserId(string userId) //Get All From User
         {
-            string sql = "SELECT FROM keeps WHERE userId = @userId";
+            string sql = "SELECT * FROM keeps WHERE userId = @userId";
             return _db.Query<Keep>(sql, new { userId });
         }
 
@@ -62,7 +62,7 @@ namespace Keepr.Repositories
                 views = @Views,
                 shares = @Shares
             WHERE id = @Id
-            AND userId = @UserId";
+            "; //AND userId = @UserId
             int affectedRows = _db.Execute(sql, keepToUpdate);
             return affectedRows == 1;
         }

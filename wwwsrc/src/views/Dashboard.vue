@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="row mt-4" v-if="viewKeeps ==true">
-        <div class="card-columns">
+        <div class="card-columns mx-auto">
           <KeepComponent v-for="keep in myKeeps" :key="keep.id" :keep="keep" />
         </div>
       </div>
@@ -132,15 +132,15 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getAllKeeps");
+    this.$store.dispatch("getMyKeeps");
     this.$store.dispatch("getVaults");
   },
   computed: {
     keeps(){
-      return this.$store.state.publicKeeps;
+      return this.$store.state.myKeeps;
     },
     myKeeps(){
-      return this.$store.state.publicKeeps.filter(keep => keep.userId == this.$auth.user.sub).splice(0,4);
+      return this.$store.state.myKeeps.filter(keep => keep.userId == this.$auth.user.sub).splice(0,4);
     },
     vaults(){
       return this.$store.state.vaults;
