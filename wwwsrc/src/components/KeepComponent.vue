@@ -34,8 +34,13 @@ export default {
             }
         },
         keepThis(keepId, vaultId){
+            let newVaultKeep = {
+                vaultId,
+                keepId
+            }
             console.log("keepId: " + keepId);
             console.log("vaultId: "+ vaultId)
+            this.$store.dispatch("addKeepToVault", newVaultKeep)
         }
     },
     computed: {

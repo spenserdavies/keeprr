@@ -10,6 +10,7 @@ export default new Vuex.Store({
     publicKeeps: [],
     vaults: [],
     activeVault: {},
+    activeVaultKeeps: [],
   },
   mutations: {
     setKeeps(state, keeps){
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     setActiveVault(state, vaultId){
       state.activeVault = state.vaults.filter(vault => vault.id == vaultId).pop();
       console.log(state.activeVault);
+    },
+    setActiveVaultKeeps(state, vaultKeeps){
+      state.activeVaultKeeps = vaultKeeps;
     }
   },
   actions: {
@@ -48,6 +52,14 @@ export default new Vuex.Store({
       dispatch("getAllKeeps");
       }catch(err){
         console.error(err);
+      }
+    },
+    async addKeepToVault({commit, dispatch}, newVaultKeep){
+      try {
+        let res = await api.post("vaultkeeps", newVaultKeep)
+        console.log(res)
+      } catch (err) {
+        console.error(err)
       }
     },
     async getVaults({commit}){
