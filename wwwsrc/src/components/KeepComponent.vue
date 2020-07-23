@@ -4,8 +4,8 @@
           <img class="card-img-top" :src="keep.img">
           <div class="card-body">
             <button v-if="$auth.isAuthenticated && this.$route.name != 'vault'" class="btn btn-secondary float-right mt-0 dropdown-toggle" type="button" id="keep-button" data-toggle="dropdown">Keep</button>
-            <div class="dropdown-menu">
-                <p @click="keepThis(keep.id, vault.id)" class="dropdown-item pointer" v-for="vault in vaults" :key="vault.id">{{vault.name}}</p>
+            <div class="dropdown-menu bg-info">
+                <p @click="keepThis(keep.id, vault.id)" class="dropdown-item pointer text-white" v-for="vault in vaults" :key="vault.id">{{vault.name}}</p>
             </div>
             <button v-if="this.$route.name == 'vault'" class="btn btn-primary float-right mt-0" @click="removeVaultKeep">Remove</button>
             <h4 class="card-title" >{{keep.name}}</h4>
