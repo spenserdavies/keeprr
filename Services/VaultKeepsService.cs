@@ -15,10 +15,13 @@ namespace Keepr.Services
             _repo = repo;
         }
 
-        public DTOVaultKeep Get(int id, string userId)
+        internal IEnumerable<VaultKeepVM> GetAll(string userId) //NOTE Might change to Public? idk if it matters
         {
-            
-            DTOVaultKeep exists = _repo.GetById(id, userId);
+            return _repo.GetByUserId(userId);
+        }
+        internal DTOVaultKeep GetById(int id) //TODO call in a different controller than VKC
+        {            
+            DTOVaultKeep exists = _repo.GetById(id);
             if(exists == null){
                 throw new Exception("ur wrong bub");
             }
@@ -26,21 +29,20 @@ namespace Keepr.Services
         }
         internal DTOVaultKeep Create(DTOVaultKeep newVaultKeep)
         {
-            int id = _repo.Create(newVaultKeep);
-            newVaultKeep.Id = id;
-            return newVaultKeep;
+            return _repo.Create(newVaultKeep);
         }
 
-        internal object Delete(int id, string userId)
+        internal DTOVaultKeep Delete(int id, string userId)
         {
-            DTOVaultKeep exists = Get(id, userId);
+            DTOVaultKeep exists = GetById(id);
             _repo.Delete(id, userId);
             return exists;
         }
 
-        internal IEnumerable<VaultKeep> GetKeepsByVaultId(int id, string userId)
+        //////////////////////////// GET KEEPS FOR A VAULT ////////////////////////////////////////
+        public IEnumerable<VaultKeepVM> GetKeepsByVaultId(int vaultId, string userId)
         {
-            return _repo.GetKeepsByVaultId(id, userId);
+            return _repo.GetKeepsByVaultId(vaultId, userId);
         }
     }
 }

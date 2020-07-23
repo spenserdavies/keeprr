@@ -14,29 +14,42 @@ namespace Keepr.Repositories
             _db = db;
         }
 
-        internal DTOVaultKeep GetById(int id, string userId)
+        internal DTOVaultKeep GetById(int id)
         {
-            string sql = "SELECT * FROM vaultkeeps WHEER id = @id AND userId = @userId";
-            return _db.QueryFirstOrDefault<DTOVaultKeep>(sql, new { id, userId });
+            string sql = "SELECT * FROM vaultkeeps WHERE id = @id"; //NOTE STOP MISPELLING SQL statements
+            return _db.QueryFirstOrDefault<DTOVaultKeep>(sql, new { id});
         }
-        internal int Create(DTOVaultKeep newDTOVaultKeep)
+
+        internal IEnumerable<VaultKeepVM> GetByUserId(string userId)
+        {
+            string sql = @"
+                SELECT
+                k.*,
+                vk.id as vaultkeepId
+                FROM vaultkeeps vk
+                INNER JOIN keeps k on k.id = vk.keepId
+                WHERE userId = @userId";
+            return _db.Query<VaultKeepVM>(sql, new { userId });
+        }
+
+        internal DTOVaultKeep Create(DTOVaultKeep newDTOVaultKeep)
         {
             string sql = @"
                 INSERT INTO vaultkeeps
-                (vaultId, keepId)
+                (vaultId, keepId, userId)
                 VALUES
-                (@VaultId, @KeepId);
+                (@VaultId, @KeepId, @UserId);
                 SELECT LAST_INSERT_ID();";
-            return _db.ExecuteScalar<int>(sql, newDTOVaultKeep);
+            newDTOVaultKeep.Id = _db.ExecuteScalar<int>(sql, newDTOVaultKeep);
+            return newDTOVaultKeep;
         }
-
         internal void Delete(int id, string userId)
         {
             string sql = "DELETE FROM vaultkeeps WHERE id = @id AND userId = @UserId";
-            _db.Execute(sql, new { id, userId });
+            _db.Execute(sql, new { id }); // TODO might have to put userId in the new object?
         }
 
-        internal IEnumerable<VaultKeep> GetKeepsByVaultId(int id, string userId)
+        public IEnumerable<VaultKeepVM> GetKeepsByVaultId(int vaultId, string userId)
         {
             string sql = @"
                  SELECT 
@@ -45,7 +58,7 @@ namespace Keepr.Repositories
                  FROM vaultkeeps vk
                  INNER JOIN keeps k ON k.id = vk.keepId 
                  WHERE (vaultId = @vaultId AND vk.userId = @userId) ";
-            return _db.Query<VaultKeep>(sql, new { id, userId });
+            return _db.Query<VaultKeepVM>(sql, new { vaultId, userId }); //changed id to vaultId
         }
     }
 }
