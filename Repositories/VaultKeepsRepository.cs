@@ -45,8 +45,8 @@ namespace Keepr.Repositories
         }
         internal void Delete(int id, string userId)
         {
-            string sql = "DELETE FROM vaultkeeps WHERE id = @id AND userId = @UserId";
-            _db.Execute(sql, new { id }); // TODO might have to put userId in the new object?
+            string sql = "DELETE FROM vaultkeeps WHERE id = @id AND userId = @userId";
+            _db.Execute(sql, new { id, userId }); // TODO might have to put userId in the new object?
         }
 
         public IEnumerable<VaultKeepVM> GetKeepsByVaultId(int vaultId, string userId)

@@ -56,12 +56,12 @@ namespace Keepr.Controllers
         {
             try
             {
-                // var claim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-                // string userId = "";
-                // if(claim != null){
-                //     userId = claim.Value;
-                // } // userId doesnt have a default value error?
-                string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var claim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                string userId = "";
+                if(claim != null){
+                    userId = claim.Value;
+                } // userId doesnt have a default value error?
+                // string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 return Ok(_vks.Delete(id, userId));
             }
             catch (Exception e)
