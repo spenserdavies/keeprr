@@ -30,10 +30,14 @@ export default {
     },
     keeps(){
       return this.$store.state.publicKeeps
+    },
+    vaults(){
+      return this.$store.state.vaults;
     }
   },
   mounted(){
     this.$store.dispatch("getAllKeeps");
+    this.$store.dispatch("getVaults");
   },
   methods: {
     logout() {
