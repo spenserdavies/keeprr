@@ -12,8 +12,7 @@
 
     <div class="row mt-3 justify-content-center">
       <div class="card-columns p-3">
-        <KeepComponent v-for="keep in keeps" :key="keep.id" :keep="keep" />
-        
+        <KeepComponent v-for="keep in keeps" :key="keep.id" :keep="keep" />        
       </div>
     </div>
 

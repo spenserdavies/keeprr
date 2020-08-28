@@ -1,9 +1,9 @@
 <template>
     <div id="vault-component">
         <div style="width: 25vw;" class="card vault-card shadow text-dark">
-            <h4 class="p-2">{{vault.name}}</h4>
-            <h5 class="p-2">{{vault.description}}</h5>
-            <small>{{vault.userId}}</small>
+            <h4 class="p-4 text-center mt-3">{{vault.name}}</h4>
+            <h5 class="p-4">{{vault.description}}</h5>
+            
             <div class="row">
                 <div class="col-12">
                     <router-link :to="{ name: 'vault', params: {vaultId: vault.id} }">

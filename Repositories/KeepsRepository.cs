@@ -70,6 +70,9 @@ namespace Keepr.Repositories
         internal bool Delete(int id, string userId)
         {
             string sql = "DELETE FROM keeps WHERE id = @id AND userId = @userId LIMIT 1";
+
+            // string sql = "DELETE FROM keeps WHERE id = @id"; NOTE just for deleting the keeps from the tester
+
             int affectedRows = _db.Execute(sql, new { id, userId });
             return affectedRows == 1;
         }
