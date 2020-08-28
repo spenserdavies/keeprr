@@ -18,6 +18,11 @@ namespace Keepr.Services
             return _repo.Get();
         }
 
+        // public IEnumerable<Keep> GetPrivate(string userId)
+        // {
+        //     return _repo.GetPrivate(userId);
+        // }                                    MIGHT NOT NEED THIS? ADDING ANOTHER GET ON CTRLR THROWS A LOT OF ERRORS
+
 
         internal IEnumerable<Keep> GetByUserId(string userId) //Get by User
         {
@@ -26,6 +31,7 @@ namespace Keepr.Services
 
         internal Keep GetById(int id) //Get by Id
         {
+            
             Keep foundKeep = _repo.GetById(id);
             if(foundKeep == null)
             {

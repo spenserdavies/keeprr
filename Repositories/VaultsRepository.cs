@@ -37,6 +37,12 @@ namespace Keepr.Repositories
             return newVault;
         }
 
+        internal IEnumerable<Vault> Get(string userId)
+        {
+            string sql = "SELECT * FROM vaults WHERE userId = @userId";
+            return _db.Query<Vault>(sql, new { userId });
+        }
+
         internal bool Delete(int id, string userId)
         {
             string sql = "DELETE FROM vaults WHERE id = @id AND userId = @userId";

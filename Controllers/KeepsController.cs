@@ -21,7 +21,7 @@ namespace Keepr.Controllers
             _ks = ks;
         }
         [HttpGet] //Get All api/keeps
-        public ActionResult<IEnumerable<Keep>> Get()
+        public ActionResult<IEnumerable<Keep>> Get() //TODO somehow gotta make this also get private ones if youre the poster
         {
             try
             {
@@ -32,6 +32,7 @@ namespace Keepr.Controllers
                 return BadRequest(e.Message);
             };
         }
+
         [HttpGet("user")] // Get By User api/user
         [Authorize]
         public ActionResult<IEnumerable<Keep>> GetKeepsByUser()
@@ -51,6 +52,11 @@ namespace Keepr.Controllers
         {
             try
             {
+                var claim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                string userId = "";
+                if(claim != null){
+                    userId = claim.Value;
+                }
                 return Ok(_ks.GetById(id));
             }
             catch (Exception e)
@@ -67,6 +73,7 @@ namespace Keepr.Controllers
             {
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 newKeep.UserId = userId;
+                Console.WriteLine(newKeep);
                 return Ok(_ks.Create(newKeep));
             }
             catch (Exception e)

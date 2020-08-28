@@ -19,7 +19,7 @@ namespace Keepr.Models
         public int Keeps { get; set; }
 
     }
-    public class VaultKeepViewModel : Keep
+    public class VaultKeepVM : Keep //from TimsFinalTacos, was originally Called ViewModel
     {
         public int VaultKeepId { get; set; }
     }
