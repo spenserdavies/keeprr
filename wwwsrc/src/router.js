@@ -6,6 +6,7 @@ import Home from "./views/Home.vue";
 import Dashboard from "./views/Dashboard.vue";
 import Keeps from "./views/Keeps.vue";
 import Vault from "./views/Vault.vue";
+
 import { authGuard } from "@bcwdev/auth0-vue";
 
 Vue.use(Router);

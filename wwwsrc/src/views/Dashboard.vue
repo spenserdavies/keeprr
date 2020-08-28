@@ -112,6 +112,7 @@
 <script>
 import KeepComponent from "@/components/KeepComponent.vue"
 import VaultComponent from "@/components/VaultComponent.vue"
+import VaultForm from "@/components/VaultForm.vue"
 export default {
   components: {
     KeepComponent,
