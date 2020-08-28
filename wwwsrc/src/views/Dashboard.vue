@@ -29,8 +29,8 @@
               placeholder="Description"
               v-model="newKeep.Description"
             />
-            <label for="check" class="ml-0">Set As Private?</label>
-            <input type="checkbox" class="p-2 m-2 ml-0" id="check" v-model="newKeep.IsPrivate" />
+            <!-- <label for="check" class="ml-0">Set As Private?</label>
+            <input type="checkbox" class="p-2 m-2 ml-0" id="check" v-model="newKeep.IsPrivate" /> -->
 
             <button type="submit" class="btn btn-primary float-right m-2 text-secondary border-secondary">Submit</button>
             <button class="btn btn-secondary float-right m-2 text-primary border-secondary" @click="clearKeepForm">Cancel</button>
@@ -123,7 +123,7 @@ export default {
   name: "dashboard",
   data() {
     return {
-      newKeep: {},
+      newKeep: { isPrivate: false },
       newVault: {},
       keepForm: false,
       vaultForm: false,
@@ -148,7 +148,7 @@ export default {
   },
   methods: {
     clearKeepForm(){
-      this.newKeep = {};
+      this.newKeep = { isPrivate: false };
       this.keepForm = false;
     },
     clearVaultForm(){
