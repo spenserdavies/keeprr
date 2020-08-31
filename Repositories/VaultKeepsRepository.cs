@@ -32,6 +32,13 @@ namespace Keepr.Repositories
             return _db.Query<VaultKeepVM>(sql, new { userId });
         }
 
+        internal bool hasRelationship(DTOVaultKeep newVaultKeep)
+        {
+            string sql = "SELECT * FROM vaultkeeps WHERE keepId = @KeepId AND vaultId = @VaultId";
+            var found = _db.QueryFirstOrDefault<DTOVaultKeep>(sql, newVaultKeep);
+            return found != null;
+        }
+
         internal DTOVaultKeep Create(DTOVaultKeep newDTOVaultKeep)
         {
             string sql = @"

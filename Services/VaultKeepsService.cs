@@ -29,6 +29,10 @@ namespace Keepr.Services
         }
         internal DTOVaultKeep Create(DTOVaultKeep newVaultKeep)
         {
+            if(_repo.hasRelationship(newVaultKeep))
+            {
+                throw new Exception("That Keep is Already in that Vault");
+            }
             return _repo.Create(newVaultKeep);
         }
 
