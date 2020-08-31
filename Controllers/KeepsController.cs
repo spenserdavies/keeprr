@@ -89,8 +89,8 @@ namespace Keepr.Controllers
             try
             {
                 keepToUpdate.Id = id;
-                string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                return Ok(_ks.Edit(keepToUpdate, userId));
+                
+                return Ok(_ks.Edit(keepToUpdate));
             }
             catch (Exception e)
             {

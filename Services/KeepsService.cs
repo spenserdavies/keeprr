@@ -45,10 +45,10 @@ namespace Keepr.Services
             return _repo.Create(newKeep);
         }
 
-        internal Keep Edit(Keep keepToUpdate, string userId) //Edit
+        internal Keep Edit(Keep keepToUpdate) //Edit
         {
             Keep foundKeep = GetById(keepToUpdate.Id);
-            if(foundKeep.UserId == userId && _repo.Edit(keepToUpdate, userId))
+            if(_repo.Edit(keepToUpdate))
             {
                 return keepToUpdate;
             }

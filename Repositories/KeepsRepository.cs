@@ -48,9 +48,8 @@ namespace Keepr.Repositories
             return newKeep;
         }
 
-        internal bool Edit(Keep keepToUpdate, string userId)
+        internal bool Edit(Keep keepToUpdate)
         {
-            keepToUpdate.UserId = userId;
             string sql = @"
             UPDATE keeps
             SET

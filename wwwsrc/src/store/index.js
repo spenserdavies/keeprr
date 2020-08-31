@@ -76,7 +76,7 @@ export default new Vuex.Store({
     },
     async increaseKeepCount({commit, dispatch}, editedKeep){
       try {
-        let res = await api.put("keeps/" + editedKeep.id);
+        let res = await api.put("keeps/" + editedKeep.id, editedKeep);
         dispatch("getAllKeeps");
       } catch (error) {
         console.error(error);
